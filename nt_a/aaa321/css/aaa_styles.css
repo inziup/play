@@ -1,0 +1,353 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: antiquewhite;
+  overflow: hidden; /* 주소창 생성을 방지 */
+  font-size: 16px; /* 기본 폰트 16px */
+}
+
+
+header {
+  /* display: none; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  /* background: #f0f0f0; */
+  /* display: 16px; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.1% 0.1%;
+  z-index: 1000;
+}
+
+#title{
+  display: flex;
+  /* flex-direction: column; 요소들을 위에서 아래로 정렬; */
+  align-items: center; /*가운데 정렬 */
+  font-size: clamp(12px, 2.4vh, 30px);
+  font-weight: 700;
+  padding: 0.5% 0% 0% 3%;
+}
+
+.title_img {
+  /* position: flex; */
+  width: 3%;
+  height: auto;
+  max-width: 80px;
+  max-height: 80px;
+  opacity: 1;
+  order: -1;
+  object-fit: contain;
+  padding: 0% 0.5% 0% 0%;
+}
+
+
+
+#gameContainer {
+  position: absolute;
+   /* 반응형 참고: .game-container에 width: 100vw; height: 100vh;  */
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  max-width: 3840px; /* PC에서 너무 넓어지지 않게 */
+  max-height: 2160px;
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+  background-color: antiquewhite;
+  background-image: url('../img/background.png');
+  background-size: contain; /*배경사이즈 맞춤*/
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* 자동 비율 맞춤 */
+@media screen and (max-aspect-ratio: 16/9) {
+  #gameContainer {
+    width: 100vw;
+    height: auto;
+  }
+}
+
+@media screen and (min-aspect-ratio: 16/9) {
+  #gameContainer {
+    height: 90vh;
+    width: auto;
+  }
+}
+
+  @media (max-width: 1280px) {
+    #gameContainer {
+      height: calc(var(--vh, 1vh) * 100); /* 모바일에서만 적용 */
+    }
+  }
+
+
+/* 아주 작은 화면(모바일)에서는 최소 여백 20px 확보 */
+@media screen and (max-width: 400px) {
+  body {
+    font-size: 10px;
+  }
+  #gameContainer {
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+}
+
+
+
+/* 
+만약 게임이나 인터랙티브 앱이라서 Canvas 같은 걸 쓴다면, scale() 방식을 유지하고 싶을 수도 있어요.
+그럴 땐 transform을 쓰되 이렇게 깔끔하게: 
+orientation: portrait/landscape → 요즘 많이 쓰는 깨끗한 기준입니다.
+transform-origin도 조금 다듬어줍니다. */
+
+@media (orientation: portrait) {
+  /* 세로 모드일 때 */
+  #gameContainer {
+    transform: scale(calc(100vw / 3840));
+    transform-origin: top center;
+  }
+}
+
+@media (orientation: landscape) {
+  /* 가로 모드일 때 */
+  #gameContainer {
+    transform: scale(calc(100vh / 2160));
+    transform-origin: center center;
+  }
+}
+
+
+
+/* 화면을 가로로 돌려주세요 - 모바일용 */
+#rotateNotice {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: black;
+  color: white;
+  font-size: 24px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+@media screen and (orientation: portrait) {
+  #rotateNotice {
+    display: flex;
+  }
+}
+
+/* 바디 */
+/* body {
+  margin: 0;
+  width: 1280px;
+  height: 720px;
+  position: relative;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+} */
+
+
+
+/*밥,빵,국수,고기,생선,시금치,파프리카,당근,사과,우유,물,운동*/
+
+.button {
+  position: absolute;
+  width: 6%;
+  /* max-width: 80px; */
+  cursor: pointer;
+}
+
+#aaa01Btn { top: 19%; left: 4.5%; } 
+#aaa02Btn { top: 19%; left: 11.5%; }
+#aaa03Btn { top: 32%; left: 4.5%; }
+#aaa04Btn { top: 32%; left: 11.5%; }
+#aaa05Btn { top: 45%; left: 4.5%; }
+#aaa06Btn { top: 45%; left: 11.5%; }
+#aaa07Btn { top: 58%; left: 4.5%; }
+#aaa08Btn { top: 58%; left: 11.5%; }
+#aaa09Btn { top: 71%; left: 4.5%; }
+#aaa10Btn { top: 71%; left: 11.5%; }
+#aaa11Btn { top: 84%; left: 4.5%; }
+#aaa12Btn { top: 84%; left: 11.5%; }
+
+
+/* 힌트이미지 */
+.hint-img {
+  position: absolute;
+  width: 5%;
+  height: auto;
+  opacity: 1;
+}
+
+#aaa01HintImg { top: 19%; left: 2%; }
+#aaa02HintImg { top: 19%; left: 18%; }
+#aaa03HintImg { top: 32%; left: 2%; }
+#aaa04HintImg { top: 32%; left: 18%; }
+#aaa05HintImg { top: 45%; left: 2%; }
+#aaa06HintImg { top: 45%; left: 18%; }
+#aaa07HintImg { top: 58%; left: 2%; }
+#aaa08HintImg { top: 58%; left: 18%; }
+#aaa09HintImg { top: 71%; left: 2%; }
+#aaa10HintImg { top: 71%; left: 18%; }
+#aaa11HintImg { top: 84%; left: 2%; }
+#aaa12HintImg { top: 84%; left: 18%; }
+
+
+
+/* 힌트텍스트 */
+.hint-text {
+  position: absolute;
+  font-size: clamp(6px, 1.2vw, 40px);
+  background: rgba(48, 54, 76, 1);
+  padding: 0.3vh 1vh;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+#aaa01HintText { top: 28%; left: 6.3%; }
+#aaa02HintText { top: 28%; left: 13.5%; }
+#aaa03HintText { top: 41%; left: 6.3%; }
+#aaa04HintText { top: 41%; left: 13.5%; }
+#aaa05HintText { top: 54%; left: 6.3%; }
+#aaa06HintText { top: 54%; left: 13.5%; }
+#aaa07HintText { top: 67%; left: 6.3%; }
+#aaa08HintText { top: 67%; left: 13.5%; }
+#aaa09HintText { top: 80%; left: 6.3%; }
+#aaa10HintText { top: 80%; left: 13.5%; }
+#aaa11HintText { top: 93%; left: 6.3%; }
+#aaa12HintText { top: 93%; left: 13.5%; }
+
+
+
+
+/* 결과이미지 */
+.image {
+  position: absolute;
+  width: 6%;
+  /* max-width: 90px; */
+  height: auto;
+  opacity: 0.3;
+}
+
+#aaa01Img { top: 17%; left: 64%; }
+#aaa02Img { top: 29%; left: 56%; }
+#aaa03Img { top: 45%; left: 54%; }
+#aaa04Img { top: 19%; left: 78.5%; }
+#aaa05Img { top: 16%; left: 73%; }
+#aaa06Img { top: 30%; left: 83%; }
+#aaa07Img { top: 48%; left: 85%; }
+#aaa08Img { top: 65%; left: 80%; }
+#aaa09Img { top: 61%; left: 70.4%; }
+#aaa10Img { top: 59%; left: 63.8%; }
+#aaa11Img { top: 70%; left: 26.5%; }
+#aaa12Img { top: 58%; left: 37.3%; }
+
+
+/* 설명이미지 */
+.info-img {
+  position: absolute;
+  width: 5%;
+  /* height: auto; */
+  opacity: 1;
+}
+
+#aaa01InfoImg { top: 300px; left: 350px; }
+#aaa02InfoImg { top: 300px; left: 350px; }
+#aaa03InfoImg { top: 300px; left: 350px; }
+#aaa04InfoImg { top: 300px; left: 350px; }
+#aaa05InfoImg { top: 300px; left: 350px; }
+#aaa06InfoImg { top: 300px; left: 350px; }
+#aaa07InfoImg { top: 300px; left: 350px; }
+#aaa08InfoImg { top: 300px; left: 350px; }
+#aaa09InfoImg { top: 300px; left: 350px; }
+#aaa10InfoImg { top: 300px; left: 350px; }
+#aaa11InfoImg { top: 300px; left: 350px; }
+#aaa12InfoImg { top: 300px; left: 350px; }
+
+
+
+/* 설명텍스트 */
+.info-text {
+  position: absolute;
+  font-size: clamp(8px, 1vw, 40px);
+  background: rgba(48, 54, 76, 1);
+  padding: 0.2% 0.8%;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+#aaa01InfoText { top: 15%; right: 45%; }
+#aaa02InfoText { top: 20%; right: 47.5%; }
+#aaa03InfoText { top: 25%; right: 49.5%; }
+#aaa04InfoText { top: 9%; left: 86%; }
+#aaa05InfoText { top: 14%; left: 89%; }
+#aaa06InfoText { top: 75%; left: 91%; }
+#aaa07InfoText { top: 80%; left: 88.5%; }
+#aaa08InfoText { top: 85%; left: 84.5%; }
+#aaa09InfoText { bottom: 4%; right: 20%; }
+#aaa10InfoText { bottom: 14%; right: 43%; }
+#aaa11InfoText { top: 72%; left: 38.8%; }
+#aaa12InfoText { top: 47%; right: 63%; }
+
+
+/* 
+#popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 2px solid black;
+  padding: 20px;
+  display: none;
+  text-align: center;
+  z-index: 100999;
+} */
+
+
+#popup {
+  width: 30vw;
+  height: 60vh;
+  /* max-width: 400px;
+  max-height: 450px; */
+  background-color: rgba(255, 255, 255, 0.8); /* 팝업 배경 색상 */
+  color: #000000; /* 검은색 폰트 */
+  font-size: clamp(12px, 1vw, 40px);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  flex-direction: column; /* 세로 배열 */
+  text-align: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-720deg) scale(0); /* 초기 상태 (회전 + 축소) */
+  transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out; /* 부드러운 전환 */
+  opacity: 0; /* 초기 상태: 투명 */
+}
+
+
+@media (max-width: 1280px) {
+  #popup {
+    width: 40vw;    /* 모바일에서는 화면에 맞게 */
+    height: 80vh;  /* 뷰포트 높이 기준 */
+  }
+}
+
+
+/* 팝업 활성화 상태 */
+#popup.active {
+  transform: translate(-50%, -50%) rotate(0deg) scale(1); /* 회전 중단 및 크기 복원 */
+  opacity: 1; /* 불투명 */
+}
